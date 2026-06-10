@@ -1,28 +1,45 @@
 # Showcase user-service
-This project contains a simple user service that provides REST interfaces to manage users. 
-While the simple business logic of the service is not the main focus of this project, it is 
-intended to show how the following technologies could be used in the development of applications:
+This project provides a simple user service exposing REST endpoints for user management.
+While the business logic is intentionally minimal and not the main focus, the project demonstrates 
+how the following technologies can be used in application development:
 
-- Flyway to set up the database.
-- JSON web tokens (JWT) for authorization.
-- Dockerfile to create a Docker application image.
+- Flyway for database schema management and initialization
+- JSON Web Tokens (JWT) for authorization
+- A Dockerfile for building a containerized application image
+- A GitHub Actions pipeline for CI/CD purposes
 
-For simplicity reasons:
+For simplicity:
 
-- Entities are used directly instead of DTOs.
-
+- Entities are used directly instead of introducing DTOs
+- The GitHub pipeline does not deploy the application automatically, as deployment is intended to be 
+performed manually, primarily in local environments
  
-## Build and run the Docker container
-To build a Docker image containing the application, use the following command in the root directory 
-of the project:
+## How to build and run the application
+
+### Build and run the Docker container locally
+In order to build and run a Docker image, a Docker distribution needs to be installed on your system.
+
+Use the following command in the root directory of the project to build a Docker image for this application:
 ```
 docker build -t showcase.user-service .
 ```
 
-Start the Docker image with the following command:
+Use the following command to start the Docker container
 ```
 docker run -p 8080:8080 showcase.user-service
 ```
+
+### Pull and run the Docker image from the GitHub Container Registry (GHCR)
+A Docker image of the application is available in the GHCR and can be pulled with the following command:
+```
+docker pull ghcr.io/dmasc/showcase.user-service:latest
+```
+
+Use the following command to start the Docker container
+```
+docker run -p 8080:8080 ghcr.io/dmasc/showcase.user-service
+```
+
 
 ## How to use the application
 Currently, the application only provides two REST endpoints:

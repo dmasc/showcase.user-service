@@ -6,6 +6,7 @@ on:
       - main
       - develop
 
+# Allow the upload of the Docker image to the GHCR
 permissions:
   contents: read
   packages: write
