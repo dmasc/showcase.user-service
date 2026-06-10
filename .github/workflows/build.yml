@@ -22,5 +22,17 @@ jobs:
       - name: Verify source code
         run: ./mvnw test
 
+      - name: Log in to GHCR
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
       - name: Build Docker image
-        run: docker build -t showcase.user-service .
+        run: |
+          docker build \
+          -t ghcr.io/${{ github.repository }}:${{ github.sha }} \
+          -t ghcr.io/${{ github.repository }}:latest \
+          .
+
+      - name: Push image to GHCR
+        run: |
+          docker push ghcr.io/${{ github.repository }}:${{ github.sha }}
+          docker push ghcr.io/${{ github.repository }}:latest
