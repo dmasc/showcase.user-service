@@ -25,16 +25,17 @@ public class UserService implements UserDetailsService {
         return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("User with ID " + id + " not found"));
     }
 
-    public UserEntity getUser(String username) {
-        return repository.findByName(username);
+    public UserEntity getUser(String name) {
+        return repository.findByName(name).orElseThrow(() -> new EntityNotFoundException("User '" + name + "' not found"));
     }
 
     @Override
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity entity = getUser(username);
-        if (entity == null) {
-            throw new UsernameNotFoundException("User '" + username + "' not found");
+        try {
+            UserEntity entity = getUser(username);
+            return new User(entity.getName(), entity.getPassword(), Collections.singletonList(new SimpleGrantedAuthority("ADMIN")));
+        } catch (EntityNotFoundException e) {
+            throw new UsernameNotFoundException(e.getMessage(), e);
         }
-        return new User(entity.getName(), entity.getPassword(), Collections.singletonList(new SimpleGrantedAuthority("ADMIN")));
     }
 }

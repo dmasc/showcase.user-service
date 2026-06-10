@@ -24,7 +24,7 @@ Use the following command in the root directory of the project to build a Docker
 docker build -t showcase.user-service .
 ```
 
-Use the following command to start the Docker container
+Start the Docker container with the following command:
 ```
 docker run -p 8080:8080 showcase.user-service
 ```
@@ -35,7 +35,7 @@ A Docker image of the application is available in the GHCR and can be pulled wit
 docker pull ghcr.io/dmasc/showcase.user-service:latest
 ```
 
-Use the following command to start the Docker container
+Start the Docker container with the following command:
 ```
 docker run -p 8080:8080 ghcr.io/dmasc/showcase.user-service
 ```
@@ -49,7 +49,7 @@ Currently, the application only provides two REST endpoints:
 This endpoint returns a JSON Web Token when valid credentials are provided.
 Valid credentials can be found in `data.sql` in the `resources` folder.
 
-To retrieve an authorization token, send a POST request with a JSON body containing the username and password.
+To retrieve an authorization token, send a POST request with a JSON body containing a valid username and password.
 
 Example request:
 ```
