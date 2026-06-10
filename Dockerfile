@@ -5,23 +5,17 @@ FROM maven:3.9-eclipse-temurin-22 AS build
 
 WORKDIR /workspace
 
-# copy POM and Maven wrapper
+# Copy relevant files
 COPY pom.xml .
-COPY .mvn .mvn
-COPY mvnw .
-
-RUN chmod +x mvnw
-# Pre-load all dependencies
-RUN ./mvnw dependency:go-offline
-
 COPY src src
 
-# build application
-RUN ./mvnw clean package -DskipTests
+# Pre-load all dependencies
+RUN mvn -B dependency:go-offline
+# Build application
+RUN mvn -B clean package -DskipTests
 
 # extract Spring Boot layers
-RUN java -Djarmode=layertools \
-    -jar target/*.jar extract
+RUN java -Djarmode=layertools -jar target/*.jar extract
 
 
 # =========================
