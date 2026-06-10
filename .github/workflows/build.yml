@@ -1,0 +1,26 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Java 22
+        uses: actions/setup-java@v4
+        with:
+          distribution: corretto
+          java-version: 22
+
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Verify source code
+        run: ./mvnw test
+
+      - name: Build Docker image
+        run: docker build -t showcase.user-service .
