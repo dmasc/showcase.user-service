@@ -6,14 +6,13 @@ on:
       - main
       - develop
 
-# Allow the upload of the Docker image to the GHCR
-permissions:
-  contents: read
-  packages: write
-
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Allow the upload of the Docker image to the GHCR
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Set up Java 22
         uses: actions/setup-java@v5

@@ -40,6 +40,29 @@ Start the Docker container with the following command:
 docker run -p 8080:8080 ghcr.io/dmasc/showcase.user-service
 ```
 
+### Deploy the Docker image in a local _kind_ Kubernetes cluster
+The _kind_ Kubernetes cluster needs to expose a port that can be used to connect to a deployed 
+application. To achieve that, create a new cluster with the _kind_ configuration file provided
+in the _k8s_ subdirectory of the _target_ folder:
+```
+kind create cluster --config target/k8s/kind-config.yaml
+```
+
+Now load the Docker image of the application into the _kind_ node:
+```
+kind load docker-image ghcr.io/dmasc/showcase.user-service:latest
+```
+
+After that, apply the deployment configuration provided in the _k8s_ subdirectory of the _target_ folder:
+```
+kubectl apply -f target/k8s/deployment.yaml
+```
+
+Use port 30080 to access the application endpoints, e.g.:  
+```
+http://localhost:30080/actuator/health
+```
+
 
 ## How to use the application
 Currently, the application only provides two REST endpoints:

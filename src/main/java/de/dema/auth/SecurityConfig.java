@@ -33,6 +33,7 @@ public class SecurityConfig {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login").permitAll()
+                        .requestMatchers("/actuator/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .userDetailsService(userService)

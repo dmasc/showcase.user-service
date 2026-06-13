@@ -2,6 +2,7 @@ target/
 .git/
 .idea/
 .vscode/
+k8s/
 *.iml
 *.log
 Dockerfile

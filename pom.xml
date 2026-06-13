@@ -13,6 +13,7 @@
         <maven.compiler.target>22</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jjwt.version>0.13.0</jjwt.version>
+        <k8s.name>showcase-user-service</k8s.name>
     </properties>
 
     <parent>
@@ -44,6 +45,17 @@
                 </configuration>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>k8s</directory>
+                <filtering>true</filtering>
+                <targetPath>${project.build.directory}/k8s</targetPath>
+            </resource>
+        </resources>
     </build>
 
     <dependencies>
