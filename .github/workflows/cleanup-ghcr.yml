@@ -1,9 +1,10 @@
-name: Cleanup GHCR images
+name: Cleanup old images in GHCR
 
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: "0 3 * * *"
+  workflow_run:
+    workflows: ["Build and push Docker image"]
+    types:
+      - completed
 
 jobs:
   cleanup:
